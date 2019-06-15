@@ -29,7 +29,21 @@ public class EmployeeServiceMockImpl implements EmployeeService {
 	}
 
 	// Return the Mocked Employee List
+        @Override
 	public List<Employee> getAllEmployees() {
 		return new ArrayList<Employee>(testEmployees);
+	}
+        @Override
+        public Employee createEmployee(String name, String empId) {
+
+		Employee emp = new Employee();
+		emp.setName(name);
+		emp.setEmpId(empId);
+		return emp;
+	}
+        
+        @Override
+	public void deleteEmployee(String empId) {
+		
 	}
 }
