@@ -1,0 +1,40 @@
+git branch -a
+
+git checkout shifu_release7.5
+
+git checkout -b  shifu_release7.5.1 shifu_release7.5
+
+git checkout -b  shifu_release7.5_surajit  shifu_release7.5
+
+git status
+
+git add HelpTopicService/src/main/java/com/apple/shifu/controller/ProcessController.java HelpTopicService/src/main/java/com/apple/shifu/dao/ProcessDAO.java HelpTopicService/src/main/java/com/apple/shifu/dao/ProcessDAOImpl.java HelpTopicService/src/main/java/com/apple/shifu/service/ProcessService.java HelpTopicService/src/main/java/com/apple/shifu/service/ProcessServiceImpl.java
+
+git commit HelpTopicService/src/main/java/com/apple/shifu/controller/ProcessController.java HelpTopicService/src/main/java/com/apple/shifu/dao/ProcessDAO.java HelpTopicService/src/main/java/com/apple/shifu/dao/ProcessDAOImpl.java HelpTopicService/src/main/java/com/apple/shifu/service/ProcessService.java HelpTopicService/src/main/java/com/apple/shifu/service/ProcessServiceImpl.java -m "new appLoad Service"
+
+git push origin shifu_release_3.0.sura
+
+git checkout -b  shifu_release_3.0.1 shifu_release_3.0
+
+------------------To add any project to the existing git repository———————
+
+git config --global user.name “surajitsamui”
+
+git config --global user.email  surajitsamui011@gmail.com
+
+Then enter into the local  project folder 
+
+cd gittesting/
+
+git init 
+
+git status 
+
+git remote add origin https://github.com/surajitsamui/HelloWorld.git
+
+git commit -m "first commit”.
+
+git commit -m "initial commit”.
+
+git push origin master
+git push origin master —force (if not work then use this command
