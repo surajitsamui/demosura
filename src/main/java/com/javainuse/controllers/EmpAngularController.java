@@ -1,5 +1,6 @@
 package com.javainuse.controllers;
 import com.javainuse.model.Employee;
+import com.javainuse.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,12 @@ public class EmpAngularController {
 	@GetMapping(produces = "application/json")
 	public List<Employee> firstPage() {
 		return employees;
+	}
+        
+        @GetMapping(produces = "application/json")
+	@RequestMapping({ "/validateLogin" })
+	public User validateLogin() {
+		return new User("User successfully authenticated");
 	}
 
 	@DeleteMapping(path = { "/{id}" })
