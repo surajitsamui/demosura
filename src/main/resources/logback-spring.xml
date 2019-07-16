@@ -30,12 +30,12 @@
         </filter>
     </appender>   
     <springProfile name="test">
-        <appender name="accessLogFileAppender4TestAndProd" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <appender name="accessLogFileAppender4Test" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>${LOG_PATH}/boot-logback-access.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <fileNamePattern>${LOG_PATH}/boot-logback-access.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                    <maxFileSize>15MB</maxFileSize>
+                    <maxFileSize>890MB</maxFileSize>
                 </timeBasedFileNamingAndTriggeringPolicy>
             </rollingPolicy>
             <encoder>
@@ -44,7 +44,7 @@
             </encoder>
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>DEBUG</level>
-                <onMatch>DENY</onMatch>
+                <onMatch>ACCEPT</onMatch>
             </filter>
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>INFO</level>
@@ -52,7 +52,7 @@
             </filter>
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>TRACE</level>
-                <onMatch>DENY</onMatch>
+                <onMatch>ACCEPT</onMatch>
             </filter>
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>WARN</level>
@@ -60,25 +60,27 @@
             </filter>
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
                 <level>ERROR</level>
-                <onMatch>DENY</onMatch>
+                <onMatch>ACCEPT</onMatch>
             </filter>
         </appender>
-
-        <appender name="Async-accessLogFileAppender4TestAndProd" class="ch.qos.logback.classic.AsyncAppender">
-            <appender-ref ref="accessLogFileAppender4TestAndProd"/>
+        <appender name="Async-accessLogFileAppender4Test" class="ch.qos.logback.classic.AsyncAppender">
+            <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
+            <appender-ref ref="accessLogFileAppender4Test"/>
+            <queueSize>500</queueSize> <!-- default 256 -->
+            <discardingThreshold>0</discardingThreshold>
+            <includeCallerData>false</includeCallerData><!-- default false -->
+            <neverBlock>false</neverBlock>
         </appender>
-
+        
     </springProfile>
     <root>
         <level value="INFO"/>
         <appender-ref ref="consoleAppender"/>
-        <appender-ref ref="Async-accessLogFileAppender4TestAndProd"/>
+         <appender-ref ref="Async-accessLogFileAppender4Test"/>
     </root>
-
-    <springProfile name="test,prod">
-        <logger name="com.javainuse" level="INFO" additivity="false">
-            <appender-ref ref="Async-accessLogFileAppender4TestAndProd"/>
-
+    <springProfile name="test">
+        <logger name="com.javainuse" level="DEBUG" additivity="false">
+            <appender-ref ref="Async-accessLogFileAppender4Test"/>
         </logger>
     </springProfile>
 </configuration>
